@@ -76,7 +76,9 @@
   gap: 23px;
 }
 
-.navbar__sign-in {
+.navbar__sign-in,
+.navbar__account-link,
+.navbar__logout {
   color: #111111;
   font-size: 13px;
   font-weight: 600;
@@ -84,9 +86,13 @@
   padding: 0;
   background: transparent;
   cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.navbar__sign-in:hover {
+.navbar__sign-in:hover,
+.navbar__account-link:hover,
+.navbar__logout:hover {
   color: #0b73df;
 }
 
@@ -303,6 +309,16 @@
   .navbar__mobile-actions a {
     background: #0b73df;
     color: #ffffff;
+  }
+
+  .navbar__mobile-actions .navbar__account-link {
+    border: 1px solid #d0d5dd;
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .navbar__mobile-actions .navbar__account-link:hover {
+    background: #f2f6fb;
   }
 
   .navbar__mobile-actions a:hover {

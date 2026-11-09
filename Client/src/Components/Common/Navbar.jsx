@@ -12,7 +12,7 @@ const navItems = [
 ];
 
 export default function Navbar({ onSignIn }) {
-  const { user, authLoading } = useAuth();
+  const { user, logout, authLoading } = useAuth();
   const showSignIn = !authLoading && !user;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -35,6 +35,15 @@ export default function Navbar({ onSignIn }) {
   const handleSignIn = () => {
     closeMenu();
     onSignIn?.();
+  };
+
+  const handleLogout = async () => {
+    closeMenu();
+    try {
+      await logout();
+    } catch (error) {
+      console.error("Could not complete the sign-out request:", error);
+    }
   };
 
   return (
@@ -70,6 +79,17 @@ export default function Navbar({ onSignIn }) {
 
         {/* DESKTOP ACTIONS */}
         <div className="navbar__actions">
+          {user && !authLoading && (
+            <>
+              <Link className="navbar__account-link" to="/dashboard/settings">
+                Account
+              </Link>
+              <button className="navbar__logout" type="button" onClick={handleLogout}>
+                Sign Out
+              </button>
+            </>
+          )}
+
           {showSignIn && (
             <button
               className="navbar__sign-in"
@@ -135,6 +155,26 @@ export default function Navbar({ onSignIn }) {
 
         {/* MOBILE BUTTONS */}
         <div className="navbar__mobile-actions">
+          {user && !authLoading && (
+            <>
+              <Link
+                className="navbar__account-link"
+                to="/dashboard/settings"
+                onClick={closeMenu}
+                tabIndex={isMenuOpen ? 0 : -1}
+              >
+                Account
+              </Link>
+              <button
+                type="button"
+                onClick={handleLogout}
+                tabIndex={isMenuOpen ? 0 : -1}
+              >
+                Sign Out
+              </button>
+            </>
+          )}
+
           {showSignIn && (
             <button
               type="button"

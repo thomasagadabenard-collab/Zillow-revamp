@@ -1,0 +1,362 @@
+
+.mortgage-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+  color: #172b46;
+  font-family: Arial, sans-serif;
+}
+
+.mortgage-hero {
+  min-height: 340px;
+  padding: 70px 7%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(10, 34, 64, 0.95), rgba(10, 34, 64, 0.58)),
+    url("https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1800&q=85")
+      center/cover;
+}
+
+.mortgage-hero__content {
+  max-width: 660px;
+  color: #fff;
+}
+
+.mortgage-hero__content > span {
+  color: #bad7ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.mortgage-hero h1 {
+  margin: 17px 0;
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 1.15;
+}
+
+.mortgage-hero p {
+  max-width: 530px;
+  color: #d5e2f0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.mortgage-hero a {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 13px 19px;
+  border-radius: 6px;
+  background: #2878d5;
+  color: #fff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mortgage-hero a:hover {
+  background: #145db1;
+}
+
+.mortgage-intro {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 55px 20px 35px;
+  text-align: center;
+}
+
+.mortgage-section-label {
+  color: #2874cb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+
+.mortgage-intro h2 {
+  margin: 12px 0;
+  color: #153452;
+  font-size: 26px;
+}
+
+.mortgage-intro p {
+  color: #8290a2;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.mortgage-calculator-section {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 15px 5% 55px;
+  scroll-margin-top: 25px;
+}
+
+.mortgage-calculator {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  overflow: hidden;
+  border: 1px solid #e4eaf1;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(21, 49, 79, 0.07);
+}
+
+.mortgage-input-panel {
+  padding: 35px;
+}
+
+.mortgage-panel-heading > span,
+.mortgage-results-eyebrow {
+  color: #2874cb;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.mortgage-panel-heading h2 {
+  margin: 10px 0 6px;
+  color: #173653;
+  font-size: 22px;
+}
+
+.mortgage-panel-heading p {
+  margin: 0 0 28px;
+  color: #8491a3;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.mortgage-field {
+  margin-bottom: 26px;
+}
+
+.mortgage-field > label,
+.mortgage-label-row label {
+  color: #40556d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.mortgage-number-input {
+  display: flex;
+  align-items: center;
+  margin-top: 9px;
+  border: 1px solid #dce4ee;
+  border-radius: 7px;
+}
+
+.mortgage-number-input span {
+  padding-left: 14px;
+  color: #2874cb;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.mortgage-number-input input {
+  width: 100%;
+  height: 46px;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #203b59;
+  font-size: 14px;
+}
+
+.mortgage-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 13px;
+}
+
+.mortgage-label-row strong {
+  color: #176fcf;
+  font-size: 13px;
+}
+
+.mortgage-range {
+  width: 100%;
+  accent-color: #2878d5;
+  cursor: pointer;
+}
+
+.mortgage-range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+  color: #96a1af;
+  font-size: 10px;
+}
+
+.mortgage-results-panel {
+  padding: 35px;
+  background: #123253;
+  color: #fff;
+}
+
+.mortgage-results-eyebrow {
+  color: #a9cdf7;
+}
+
+.mortgage-monthly-label {
+  margin: 30px 0 8px;
+  color: #d0deec;
+  font-size: 12px;
+}
+
+.mortgage-results-panel > h2 {
+  margin: 0;
+  font-size: clamp(25px, 3vw, 34px);
+  overflow-wrap: anywhere;
+}
+
+.mortgage-results-caption {
+  display: block;
+  margin-top: 10px;
+  color: #b5c7db;
+  font-size: 11px;
+}
+
+.mortgage-result-divider {
+  height: 1px;
+  margin: 28px 0 15px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.mortgage-result-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 11px;
+}
+
+.mortgage-result-row span {
+  color: #c3d1e0;
+}
+
+.mortgage-result-row strong {
+  text-align: right;
+  font-size: 11px;
+}
+
+.mortgage-total {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mortgage-total span {
+  color: #d1e0ef;
+  font-size: 11px;
+}
+
+.mortgage-total strong {
+  text-align: right;
+  font-size: 12px;
+}
+
+.mortgage-disclaimer {
+  margin: 22px 0 0;
+  color: #aebfd2;
+  font-size: 10px;
+  line-height: 1.7;
+}
+
+.mortgage-info {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 10px 5% 75px;
+}
+
+.mortgage-info > div:first-child {
+  text-align: center;
+}
+
+.mortgage-info h2 {
+  margin: 10px 0 25px;
+  color: #153452;
+  font-size: 24px;
+}
+
+.mortgage-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.mortgage-info-grid article {
+  padding: 24px;
+  border: 1px solid #e6ebf2;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.mortgage-info-grid article > div {
+  color: #2878d5;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.mortgage-info-grid h3 {
+  margin: 13px 0 8px;
+  color: #193653;
+  font-size: 15px;
+}
+
+.mortgage-info-grid p {
+  margin: 0;
+  color: #8190a2;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+@media (max-width: 800px) {
+  .mortgage-calculator {
+    grid-template-columns: 1fr;
+  }
+
+  .mortgage-info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 550px) {
+  .mortgage-hero {
+    min-height: 300px;
+    padding: 50px 7%;
+  }
+
+  .mortgage-hero p {
+    font-size: 13px;
+  }
+
+  .mortgage-intro {
+    padding: 40px 6% 25px;
+  }
+
+  .mortgage-intro h2 {
+    font-size: 22px;
+  }
+
+  .mortgage-calculator-section {
+    padding-right: 4%;
+    padding-left: 4%;
+  }
+
+  .mortgage-input-panel,
+  .mortgage-results-panel {
+    padding: 24px 19px;
+  }
+
+  .mortgage-info {
+    padding-right: 5%;
+    padding-left: 5%;
+  }
+}

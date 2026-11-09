@@ -1,0 +1,22 @@
+# Dependencies and generated builds
+**/node_modules/
+**/dist/
+**/coverage/
+**/.vite/
+
+# Local credentials and environment overrides
+**/.env
+**/.env.*
+!**/.env.example
+
+# User uploads and runtime artifacts
+**/uploads/
+**/logs/
+*.log
+npm-debug.log*
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

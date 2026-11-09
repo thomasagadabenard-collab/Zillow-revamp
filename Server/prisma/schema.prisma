@@ -1,0 +1,181 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  BUYER
+  ADMIN
+}
+
+enum PropertyStatus {
+  ACTIVE
+  ARCHIVED
+  SOLD
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMING
+  PAID
+  PARTIALLY_PAID
+  FAILED
+  EXPIRED
+  REFUNDED
+  REVIEW
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+}
+
+enum InquiryStatus {
+  NEW
+  REVIEWED
+  CONTACTED
+  CLOSED
+}
+
+model User {
+  id           String          @id @default(uuid()) @db.Uuid
+  googleSub    String?         @unique
+  email        String          @unique @db.VarChar(320)
+  name         String          @db.VarChar(160)
+  avatarUrl    String?         @db.Text
+  passwordHash String?
+  role         UserRole        @default(BUYER)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  saved        SavedProperty[]
+  orders       Order[]
+  passwordResetTokens PasswordResetToken[]
+
+  @@index([role])
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @db.Uuid
+  tokenHash String   @unique @db.VarChar(64)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+}
+
+model Property {
+  id           String          @id @default(uuid()) @db.Uuid
+  title        String          @db.VarChar(180)
+  price        Decimal         @db.Decimal(20, 2)
+  currency     String          @default("USD") @db.VarChar(3)
+  location     String          @db.VarChar(180)
+  propertyType String          @default("House") @db.VarChar(60)
+  bedrooms     Int             @default(0)
+  bathrooms    Int             @default(0)
+  kitchens     Int             @default(1)
+  area         String?         @db.VarChar(80)
+  description  String          @db.Text
+  status       PropertyStatus  @default(ACTIVE)
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+  images       PropertyImage[]
+  savedBy      SavedProperty[]
+  orders       Order[]
+
+  @@index([status, createdAt])
+  @@index([location])
+  @@index([propertyType])
+}
+
+model PropertyImage {
+  id         String    @id @default(uuid()) @db.Uuid
+  propertyId String    @db.Uuid
+  name       String    @db.VarChar(255)
+  url        String    @db.Text
+  mediaType  MediaType @default(IMAGE)
+  position   Int       @default(0)
+  createdAt  DateTime  @default(now())
+  property   Property  @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId, position])
+}
+
+model SavedProperty {
+  userId     String   @db.Uuid
+  propertyId String   @db.Uuid
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@id([userId, propertyId])
+  @@index([propertyId])
+}
+
+model Order {
+  id                  String      @id @default(uuid()) @db.Uuid
+  userId              String      @db.Uuid
+  propertyId          String      @db.Uuid
+  amount              Decimal     @db.Decimal(20, 2)
+  priceCurrency       String      @db.VarChar(3)
+  status              OrderStatus @default(PENDING)
+  provider            String      @default("nowpayments") @db.VarChar(40)
+  providerInvoiceId   String?     @unique @db.VarChar(120)
+  providerPaymentId   String?     @db.VarChar(120)
+  providerStatus      String?     @db.VarChar(60)
+  invoiceUrl          String?     @db.Text
+  payCurrency         String?     @db.VarChar(20)
+  payAmount           Decimal?    @db.Decimal(30, 12)
+  actuallyPaid        Decimal?    @db.Decimal(30, 12)
+  ipnPayload          Json?
+  paidAt              DateTime?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+  user                User        @relation(fields: [userId], references: [id], onDelete: Restrict)
+  property            Property    @relation(fields: [propertyId], references: [id], onDelete: Restrict)
+
+  @@index([userId, createdAt])
+  @@index([propertyId, status])
+  @@index([status, createdAt])
+}
+
+model PropertyInquiry {
+  id           String                @id @default(uuid()) @db.Uuid
+  fullName     String                @db.VarChar(160)
+  email        String                @db.VarChar(320)
+  phone        String                @db.VarChar(40)
+  title        String                @db.VarChar(180)
+  propertyType String                @db.VarChar(60)
+  city         String                @db.VarChar(120)
+  address      String                @db.VarChar(240)
+  price        Decimal               @db.Decimal(20, 2)
+  bedrooms     Int                   @default(0)
+  bathrooms    Int                   @default(0)
+  kitchens     Int                   @default(1)
+  description  String                @db.Text
+  status       InquiryStatus         @default(NEW)
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  media        PropertyInquiryMedia[]
+
+  @@index([status, createdAt])
+  @@index([email, createdAt])
+}
+
+model PropertyInquiryMedia {
+  id        String         @id @default(uuid()) @db.Uuid
+  inquiryId String         @db.Uuid
+  name      String         @db.VarChar(255)
+  url       String         @db.Text
+  mediaType MediaType      @default(IMAGE)
+  position  Int            @default(0)
+  createdAt DateTime       @default(now())
+  inquiry   PropertyInquiry @relation(fields: [inquiryId], references: [id], onDelete: Cascade)
+
+  @@index([inquiryId, position])
+}

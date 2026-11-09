@@ -2,12 +2,15 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import '../../css/Hero.css';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../Context/Authcontext.jsx';
 
 const placeholderBackground =
   "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=2200&q=80";
 
 export default function Hero({ onSignIn }) {
   const heroRef = useRef(null);
+  const { user, authLoading } = useAuth();
+  const showSignIn = !authLoading && !user;
 
   useLayoutEffect(() => {
     const context = gsap.context(() => {
@@ -57,9 +60,11 @@ export default function Hero({ onSignIn }) {
           <Link className="hero__primary-button" to="/dashboard">
             Browse Properties
           </Link>
-          <button className="hero__secondary-button" type="button" onClick={onSignIn}>
-            Sign In
-          </button>
+          {showSignIn && (
+            <button className="hero__secondary-button" type="button" onClick={onSignIn}>
+              Sign In
+            </button>
+          )}
         </div>
       </div>
     </main>

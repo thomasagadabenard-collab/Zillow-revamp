@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../css/Navbar.css";
 import logo from "../../assets/zillowelite-logo-house.png";
+import { useAuth } from "../../Context/Authcontext.jsx";
 
 const navItems = [
   { label: "Buy", to: "/buy" },
@@ -11,6 +12,8 @@ const navItems = [
 ];
 
 export default function Navbar({ onSignIn }) {
+  const { user, authLoading } = useAuth();
+  const showSignIn = !authLoading && !user;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
@@ -67,13 +70,15 @@ export default function Navbar({ onSignIn }) {
 
         {/* DESKTOP ACTIONS */}
         <div className="navbar__actions">
-          <button
-            className="navbar__sign-in"
-            type="button"
-            onClick={handleSignIn}
-          >
-            Sign In
-          </button>
+          {showSignIn && (
+            <button
+              className="navbar__sign-in"
+              type="button"
+              onClick={handleSignIn}
+            >
+              Sign In
+            </button>
+          )}
 
           <Link
             className="navbar__listing-button"
@@ -130,13 +135,15 @@ export default function Navbar({ onSignIn }) {
 
         {/* MOBILE BUTTONS */}
         <div className="navbar__mobile-actions">
-          <button
-            type="button"
-            onClick={handleSignIn}
-            tabIndex={isMenuOpen ? 0 : -1}
-          >
-            Sign In
-          </button>
+          {showSignIn && (
+            <button
+              type="button"
+              onClick={handleSignIn}
+              tabIndex={isMenuOpen ? 0 : -1}
+            >
+              Sign In
+            </button>
+          )}
 
           <Link
             to="/list-property"
